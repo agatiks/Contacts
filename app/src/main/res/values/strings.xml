@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">lab3_Contacts</string>
+    <string name="error">Can\'t work correct without this permission</string>
 </resources>

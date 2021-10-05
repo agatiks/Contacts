@@ -37,7 +37,7 @@ class MainActivity : AppCompatActivity() {
         contact_list.apply{
             layoutManager = manager
             adapter = contactAdapter}
-        Toast.makeText(this, contactAdapter.itemCount.toString(), Toast.LENGTH_SHORT).show()
+        Toast.makeText(this, "Found ${contactAdapter.itemCount} contacts", Toast.LENGTH_SHORT).show()
     }
 
     override fun onRequestPermissionsResult(
@@ -51,7 +51,7 @@ class MainActivity : AppCompatActivity() {
                         grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     showContacts()
                 } else {
-                    Toast.makeText(this, "Can't work correct without this permission", Toast.LENGTH_LONG).show()
+                    Toast.makeText(this, getString(R.string.error), Toast.LENGTH_LONG).show()
                 }
             }
         }
