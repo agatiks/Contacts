@@ -12,33 +12,40 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
-    private val permission: String = Manifest.permission.READ_CONTACTS
+    private val permission_read: String = Manifest.permission.READ_CONTACTS
+    //private val permission_sms: String = Manifest.permission.SEND_SMS
     private lateinit var contactAdapter: ContactAdapter
-    val CODE = 1
+    val CODE_READ = 1
+    //val CODE_SMS = 2
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        if (ContextCompat.checkSelfPermission(this, permission)
+        if (ContextCompat.checkSelfPermission(this, permission_read)
                 == PackageManager.PERMISSION_GRANTED) {
             showContacts()
         } else {
-            ActivityCompat.requestPermissions(this, arrayOf(permission), CODE)
+            ActivityCompat.requestPermissions(this, arrayOf(permission_read), CODE_READ)
         }
     }
 
     private fun showContacts() {
         val contacts = fetchAllContacts().sortedBy { it.name }
-
         //Toast.makeText(this, contacts[1].name, Toast.LENGTH_SHORT).show()
-        contactAdapter = ContactAdapter(contacts) {
-            toDialPhone(it.phoneNumber)
-        }
+        contactAdapter = ContactAdapter(contacts, { toDialPhone(it.phoneNumber) },
+                { /*if(ContextCompat.checkSelfPermission(this, permission_sms)
+                        == PackageManager.PERMISSION_GRANTED) {*/
+                    sendSMS(it.phoneNumber)
+                /*} else {
+                    ActivityCompat.requestPermissions(this, arrayOf(permission_read), CODE_SMS)
+                }*/
+                })
         val manager = LinearLayoutManager(this)
         contact_list.apply{
             layoutManager = manager
             adapter = contactAdapter}
-        Toast.makeText(this, "Found ${contactAdapter.itemCount} contacts", Toast.LENGTH_SHORT).show()
+        Toast.makeText(this, "Found ${contactAdapter.itemCount} contacts", Toast.LENGTH_LONG).show()
     }
+
 
     override fun onRequestPermissionsResult(
             requestCode: Int,
@@ -46,14 +53,22 @@ class MainActivity : AppCompatActivity() {
             grantResults: IntArray) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         when(requestCode) {
-            CODE -> {
+            CODE_READ -> {
                 if(grantResults.isNotEmpty() &&
                         grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     showContacts()
                 } else {
-                    Toast.makeText(this, getString(R.string.error), Toast.LENGTH_LONG).show()
+                    Toast.makeText(this, getString(R.string.error), Toast.LENGTH_SHORT).show()
                 }
             }
+            /*CODE_SMS -> {
+                if(grantResults.isNotEmpty() &&
+                        grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    Toast.makeText(this, getString(R.string.tryagain), Toast.LENGTH_SHORT).show()
+                } else {
+                    Toast.makeText(this, getString(R.string.error), Toast.LENGTH_SHORT).show()
+                }
+            }*/
         }
     }
 }

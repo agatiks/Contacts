@@ -1,4 +1,8 @@
 <resources>
     <string name="app_name">lab3_Contacts</string>
     <string name="error">Can\'t work correct without this permission</string>
+    <string name="sms_test">Hello!</string>
+    <string name="sendto_error">Can\'t resolve app for ACTION_SENDTO Intent</string>
+    <string name="dial_error">Can\'t rasolve activity for Action DIAL Intent.</string>
+    <string name="tryagain">Please try to send message again</string>
 </resources>
