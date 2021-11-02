@@ -5,4 +5,9 @@
     <string name="sendto_error">Can\'t resolve app for ACTION_SENDTO Intent</string>
     <string name="dial_error">Can\'t rasolve activity for Action DIAL Intent.</string>
     <string name="tryagain">Please try to send message again</string>
+    <plurals name="contact">
+        <item quantity="zero">no contacts</item>
+        <item quantity="one">%1$d contact</item>
+        <item quantity="other">%1$d contacts</item>
+    </plurals>
 </resources>

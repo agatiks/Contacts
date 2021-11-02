@@ -43,7 +43,8 @@ class MainActivity : AppCompatActivity() {
         contact_list.apply{
             layoutManager = manager
             adapter = contactAdapter}
-        Toast.makeText(this, "Found ${contactAdapter.itemCount} contacts", Toast.LENGTH_LONG).show()
+        val plurals = resources.getQuantityString(R.plurals.contact, contactAdapter.itemCount, contactAdapter.itemCount)
+        Toast.makeText(this, "Found $plurals", Toast.LENGTH_LONG).show()
     }
 
 

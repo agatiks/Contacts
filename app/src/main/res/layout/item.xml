@@ -20,6 +20,7 @@
             android:padding="5dp"
             style="@style/Name"
             app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/sms"
             app:layout_constraintTop_toTopOf="parent"/>
 
         <TextView
@@ -29,6 +30,7 @@
             android:padding="5dp"
             style="@style/Phone"
             app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/sms"
             app:layout_constraintTop_toBottomOf="@+id/name"
             />
 
